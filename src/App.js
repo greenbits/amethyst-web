@@ -1,20 +1,67 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import axios from 'axios';
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      status: 'not started'
+    };
+
+    this.runReport = this.runReport.bind(this);
+  }
+
+  runReport() {
+    console.log('Running report...');
+
+    this.setState({
+      status: 'started',
+      timeTook: null
+    });
+
+    let timeTook = Date.now();
+
+    axios.get('http://localhost:3000/report')
+      .then((response) => {
+        this.setState({
+          status: 'success',
+          timeTook: Date.now() - timeTook
+        });
+      })
+      .catch((error) => {
+        this.setState({ status: 'error' });
+      });
+  }
+
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <div>Status: {this.state.status}</div>
+        {this.renderSpinner()}
+        {this.renderTimeTook()}
+        <button onClick={this.runReport}>Run!</button>
       </div>
     );
+  }
+
+  renderSpinner() {
+    if (this.state.status === 'started') {
+      return (
+        <div className="spinner">
+          <div className="dot1"></div>
+          <div className="dot2"></div>
+        </div>
+      );
+    }
+  }
+
+  renderTimeTook() {
+    if (this.state.timeTook) {
+      return (
+        <div>Took: {this.state.timeTook}ms</div>
+      );
+    }
   }
 }
 
