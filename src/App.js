@@ -17,7 +17,8 @@ class App extends Component {
 
     this.setState({
       status: 'started',
-      timeTook: null
+      timeTook: null,
+      reportData: null
     });
 
     let timeTook = Date.now();
