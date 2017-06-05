@@ -40,7 +40,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <div>Status: {this.state.status}</div>
+        <div><strong>Status:</strong> {this.state.status}</div>
         {this.renderSpinner()}
         {this.renderTimeTook()}
         {this.renderData()}
@@ -63,7 +63,7 @@ class App extends Component {
   renderTimeTook() {
     if (this.state.timeTook) {
       return (
-        <div>Took: {this.state.timeTook}ms</div>
+        <div><strong>Took:</strong> {this.state.timeTook}ms</div>
       );
     }
   }
