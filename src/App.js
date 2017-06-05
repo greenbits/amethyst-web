@@ -25,7 +25,6 @@ class App extends Component {
 
     axios.get('http://localhost:3000/report')
       .then((response) => {
-        console.log(response.data.data);
         this.setState({
           status: 'success',
           timeTook: Date.now() - timeTook,
