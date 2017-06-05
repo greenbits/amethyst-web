@@ -24,9 +24,11 @@ class App extends Component {
 
     axios.get('http://localhost:3000/report')
       .then((response) => {
+        console.log(response.data.data);
         this.setState({
           status: 'success',
-          timeTook: Date.now() - timeTook
+          timeTook: Date.now() - timeTook,
+          reportData: response.data.data
         });
       })
       .catch((error) => {
@@ -40,6 +42,7 @@ class App extends Component {
         <div>Status: {this.state.status}</div>
         {this.renderSpinner()}
         {this.renderTimeTook()}
+        {this.renderData()}
         <button onClick={this.runReport}>Run!</button>
       </div>
     );
@@ -62,6 +65,25 @@ class App extends Component {
         <div>Took: {this.state.timeTook}ms</div>
       );
     }
+  }
+
+  renderData() {
+    if (this.state.reportData) {
+        return (
+          <div>
+            <strong>Report data:</strong>
+            {this.renderReportData()}
+          </div>
+        );
+    }
+  }
+
+  renderReportData() {
+    return Object.keys(this.state.reportData).map((key) => {
+      return (
+        <div key={key}>{key}: {this.state.reportData[key]}</div>
+      );
+    });
   }
 }
 
