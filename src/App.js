@@ -18,7 +18,8 @@ class App extends Component {
     this.setState({
       status: 'started',
       timeTook: null,
-      reportData: null
+      reportData: null,
+      reportId: null
     });
 
     let timeTook = Date.now();
@@ -26,9 +27,10 @@ class App extends Component {
     axios.get('http://localhost:3000/report')
       .then((response) => {
         this.setState({
-          status: 'success',
+          status: response.data.status,
           timeTook: Date.now() - timeTook,
-          reportData: response.data.data
+          reportData: response.data.data,
+          reportId: response.data.report_id
         });
       })
       .catch((error) => {
@@ -68,7 +70,7 @@ class App extends Component {
   }
 
   renderData() {
-    if (this.state.reportData) {
+    if (this.state.status === 'Finished') {
         return (
           <div>
             <strong>Report data:</strong>
