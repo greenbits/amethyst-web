@@ -27,7 +27,7 @@ class App extends Component {
     axios.get('http://localhost:3000/report')
       .then((response) => {
         this.setState({
-          status: response.data.status,
+          status: 'success',
           timeTook: Date.now() - timeTook,
           reportData: response.data.data,
           reportId: response.data.report_id
@@ -70,7 +70,7 @@ class App extends Component {
   }
 
   renderData() {
-    if (this.state.status === 'Finished') {
+    if (this.state.status === 'success') {
         return (
           <div>
             <strong>Report data:</strong>
