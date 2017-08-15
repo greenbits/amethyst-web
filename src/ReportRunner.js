@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class App extends Component {
+class ReportRunner extends Component {
   constructor() {
     super();
 
@@ -111,4 +111,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default ReportRunner;
