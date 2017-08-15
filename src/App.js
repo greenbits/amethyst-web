@@ -10,6 +10,7 @@ class App extends Component {
     };
 
     this.runReport = this.runReport.bind(this);
+    this.fetchReportStatus = this.fetchReportStatus.bind(this);
   }
 
   runReport() {
@@ -17,21 +18,42 @@ class App extends Component {
 
     this.setState({
       status: 'started',
+      startedAt: Date.now(),
       timeTook: null,
       reportData: null,
       reportId: null
     });
 
-    let timeTook = Date.now();
-
     axios.get('http://localhost:3000/report')
       .then((response) => {
-        this.setState({
-          status: 'success',
-          timeTook: Date.now() - timeTook,
-          reportData: response.data.data,
-          reportId: response.data.report_id
+        this.setState({ reportId: response.data.report.id }, () => {
+          setTimeout(this.fetchReportStatus, 500);
         });
+      })
+      .catch((error) => {
+        this.setState({ status: 'error' });
+      });
+  }
+
+  fetchReportStatus() {
+    console.log('Fetching report status...');
+
+    const reportId = this.state.reportId;
+
+    axios.get(`http://localhost:3000/report/${reportId}`)
+      .then((response) => {
+        const report = response.data.report;
+
+        if (report.status === 2) {
+          this.setState({
+            status: 'success',
+            startedAt: null,
+            timeTook: Date.now() - this.state.startedAt,
+            reportData: response.data.report.data
+          });
+        } else {
+          setTimeout(this.fetchReportStatus, 500);
+        }
       })
       .catch((error) => {
         this.setState({ status: 'error' });
