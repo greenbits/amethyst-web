@@ -63,11 +63,18 @@ class ReportRunner extends Component {
   render() {
     return (
       <div>
-        <div><strong>Status:</strong> {this.state.status}</div>
+        <div>
+          <strong>Status:</strong> {this.state.status}
+        </div>
         {this.renderSpinner()}
         {this.renderTimeTook()}
         {this.renderData()}
-        <button onClick={this.runReport}>Run!</button>
+        <button
+          onClick={this.runReport}
+          disabled={this.state.status === 'started'}
+        >
+          Run!
+        </button>
       </div>
     );
   }
@@ -86,7 +93,9 @@ class ReportRunner extends Component {
   renderTimeTook() {
     if (this.state.timeTook) {
       return (
-        <div><strong>Took:</strong> {this.state.timeTook}ms</div>
+        <div>
+          <strong>Took:</strong> {this.state.timeTook}ms
+        </div>
       );
     }
   }
