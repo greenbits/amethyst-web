@@ -102,12 +102,12 @@ class ReportRunner extends Component {
 
   renderData() {
     if (this.state.status === 'success') {
-        return (
-          <div>
-            <strong>Report data:</strong>
-            {this.renderReportData()}
-          </div>
-        );
+      return (
+        <div>
+          <strong>Report data:</strong>
+          {this.renderReportData()}
+        </div>
+      );
     }
   }
 
