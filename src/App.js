@@ -45,7 +45,12 @@ class App extends Component {
         {this.renderSpinner()}
         {this.renderTimeTook()}
         {this.renderData()}
-        <button onClick={this.runReport}>Run!</button>
+        <button
+          onClick={this.runReport}
+          disabled={this.state.status === 'started'}
+        >
+          Run!
+        </button>
       </div>
     );
   }
@@ -71,12 +76,12 @@ class App extends Component {
 
   renderData() {
     if (this.state.status === 'success') {
-        return (
-          <div>
-            <strong>Report data:</strong>
-            {this.renderReportData()}
-          </div>
-        );
+      return (
+        <div>
+          <strong>Report data:</strong>
+          {this.renderReportData()}
+        </div>
+      );
     }
   }
 
