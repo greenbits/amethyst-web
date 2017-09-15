@@ -24,7 +24,7 @@ class ReportRunner extends Component {
       reportId: null
     });
 
-    axios.get('http://localhost:3000/report')
+    axios.post('http://localhost:3000/report')
       .then((response) => {
         this.setState({ reportId: response.data.report.id }, () => {
           setTimeout(this.fetchReportStatus, 500);
