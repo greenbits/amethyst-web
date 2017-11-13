@@ -18,8 +18,7 @@ class App extends Component {
     this.setState({
       status: 'started',
       timeTook: null,
-      reportData: null,
-      reportId: null
+      reportData: null
     });
 
     let timeTook = Date.now();
@@ -29,8 +28,7 @@ class App extends Component {
         this.setState({
           status: 'success',
           timeTook: Date.now() - timeTook,
-          reportData: response.data.data,
-          reportId: response.data.report_id
+          reportData: response.data.report
         });
       })
       .catch((error) => {
