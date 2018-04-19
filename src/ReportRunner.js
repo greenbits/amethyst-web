@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+const API_URL = 'http://localhost:5000';
+
 class ReportRunner extends Component {
   constructor() {
     super();
@@ -24,7 +26,7 @@ class ReportRunner extends Component {
       reportId: null
     });
 
-    axios.post('http://localhost:3000/report')
+    axios.post(`${API_URL}/report`)
       .then((response) => {
         this.setState({ reportId: response.data.report.id }, () => {
           setTimeout(this.fetchReportStatus, 500);
@@ -40,7 +42,7 @@ class ReportRunner extends Component {
 
     const reportId = this.state.reportId;
 
-    axios.get(`http://localhost:3000/report/${reportId}`)
+    axios.get(`${API_URL}/report/${reportId}`)
       .then((response) => {
         const report = response.data.report;
 
