@@ -23,7 +23,7 @@ class App extends Component {
 
     let timeTook = Date.now();
 
-    axios.get('http://localhost:3000/report')
+    axios.get('http://localhost:5000/report')
       .then((response) => {
         this.setState({
           status: 'success',
