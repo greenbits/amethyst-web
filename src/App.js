@@ -28,7 +28,7 @@ class App extends Component {
         this.setState({
           status: 'success',
           timeTook: Date.now() - timeTook,
-          reportData: response.data.report
+          reportData: response.data.report.data
         });
       })
       .catch((error) => {
